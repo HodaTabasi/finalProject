@@ -51,15 +51,13 @@ class FirebaseHelper {
   Future<List<Category>> getCategories(context) async {
     List<Category> cats = await FireStoreHelper.fireStoreHelper.getCat();
     Provider.of<CatProvider>(context, listen: false).setCategory(cats);
-    print(cats.length);
     return cats;
   }
 
   Future<List<Product>> getProduct(context, catId) async {
     List<Product> cats =
         await FireStoreHelper.fireStoreHelper.getProduct(catId);
-    Provider.of<CatProvider>(context, listen: false).setCategory(cats);
-    print(cats.length);
+    // Provider.of<CatProvider>(context, listen: false).setCategory(cats);
     return cats;
   }
 }

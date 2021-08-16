@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/helper/providers/CartProvider.dart';
 import 'package:shop_app/models/Cart.dart';
 
 import '../../../constants.dart';
@@ -12,8 +14,10 @@ class CartCard extends StatelessWidget {
 
   final Cart cart;
 
+
   @override
   Widget build(BuildContext context) {
+    // Provider.of<CartProvider>(context, listen: false).calculateTotalPrice(cart);
     return Row(
       children: [
         SizedBox(
@@ -26,7 +30,7 @@ class CartCard extends StatelessWidget {
                 color: Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.asset(cart.product.images[0]),
+              child: Image.network(cart.imageUrl),
             ),
           ),
         ),
@@ -35,14 +39,14 @@ class CartCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              cart.product.title,
+              cart.name,
               style: TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
             ),
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "\$${cart.product.price}",
+                text: "\$${cart.price}",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [

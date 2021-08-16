@@ -8,9 +8,11 @@ class ProductImages extends StatefulWidget {
   const ProductImages({
     Key key,
     @required this.product,
+    @required this.flag,
   }) : super(key: key);
 
   final Product product;
+  final bool flag;
 
   @override
   _ProductImagesState createState() => _ProductImagesState();
@@ -18,6 +20,7 @@ class ProductImages extends StatefulWidget {
 
 class _ProductImagesState extends State<ProductImages> {
   int selectedImage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +31,9 @@ class _ProductImagesState extends State<ProductImages> {
             aspectRatio: 1,
             child: Hero(
               tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
+              child: (widget.flag)
+                  ? Image.network(widget.product.images[selectedImage])
+                  : Image.asset(widget.product.images[selectedImage]),
             ),
           ),
         ),
@@ -63,7 +68,9 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.asset(widget.product.images[index]),
+        child: (widget.flag)
+            ? Image.network(widget.product.images[index])
+            : Image.asset(widget.product.images[index]),
       ),
     );
   }

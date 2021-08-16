@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 
-import '../constants.dart';
-import '../size_config.dart';
+import '../../constants.dart';
+import '../../size_config.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
+class ProductItem extends StatelessWidget {
+  const ProductItem({
     Key key,
     this.width = 140,
     this.aspectRetio = 1.02,
@@ -24,16 +24,19 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            DetailsScreen.routeName,
-            arguments: ProductDetailsArguments(product),
-          ),
+          onTap: () {
+            product.images = [product.mainImage];
+            Navigator.pushNamed(
+              context,
+              DetailsScreen.routeName,
+              arguments: ProductDetailsArguments(product,true),
+            );
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: 1.02,
+                aspectRatio: 1.40,
                 child: Container(
                   padding: EdgeInsets.all(getProportionateScreenWidth(20)),
                   decoration: BoxDecoration(
@@ -42,7 +45,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: product.id,
-                    child: Image.asset(product.images[0]),
+                    child: Image.network(product.mainImage),
                   ),
                 ),
               ),
@@ -56,7 +59,7 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${product.price}",
+                    "\$${product.price1}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/models/Product.dart';
-import 'package:shop_app/screens/product/body.dart';
-
-import '../details/components/custom_app_bar.dart';
 import 'Body.dart';
 
 class ProductPage extends StatefulWidget {
-  static String routeName = "/productPage";
+  static String routeName = "/products";
 
   @override
   _ProductPageState createState() => _ProductPageState();
@@ -27,6 +23,5 @@ class _ProductPageState extends State<ProductPage> {
 
 class ProductArguments {
   final String catId;
-
   ProductArguments({@required this.catId});
 }

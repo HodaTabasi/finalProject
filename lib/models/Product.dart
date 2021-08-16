@@ -2,42 +2,48 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Product {
-   int id;
-   String title, description;
-   List<String> images;
+  String id;
+  String title, description;
+  List<String> images;
   final List<Color> colors = [
     Color(0xFFF6625E),
     Color(0xFF836DB8),
     Color(0xFFDECB9C),
     Colors.white,
   ];
-   double rating, price;
-   bool isFavourite, isPopular;
-   String mainImage;
-   String catId;
-   String views;
+  double rating, price;
+  String price1;
+  bool isFavourite, isPopular;
+  String mainImage;
+  String catId;
+  String views;
 
   Product({
-    @required this.id,
-    @required this.images,
+    this.id,
+    this.images,
     this.rating = 0.0,
     this.isFavourite = false,
     this.isPopular = false,
-    @required this.title,
-    @required this.price,
-    @required this.description,
-    @required this.mainImage,
+    this.title,
+    this.price,
+    this.description,
+    this.mainImage,
+    this.views,
+    this.catId,
+    this.price1,
   });
 
-  Product.toMap(DocumentSnapshot<Map> snapshot){
+  Product.toMap(DocumentSnapshot<Map> snapshot) {
     Map map = snapshot.data();
     this.id = map['id'];
     this.title = map['name'];
-    this.price = map['price'];
+    this.price1 = map['price'];
     this.description = map['desc'];
     this.catId = map['catId'];
     this.views = map['views'];
     this.mainImage = map['image'];
+    this.isFavourite = false;
+    this.isPopular = false;
   }
 }
 
@@ -45,7 +51,7 @@ class Product {
 
 List<Product> demoProducts = [
   Product(
-    id: 1,
+    id: '1',
     images: [
       "assets/images/ps4_console_white_1.png",
       "assets/images/ps4_console_white_2.png",
@@ -60,7 +66,7 @@ List<Product> demoProducts = [
     isPopular: true,
   ),
   Product(
-    id: 2,
+    id: '2',
     images: [
       "assets/images/Image Popular Product 2.png",
     ],
@@ -71,7 +77,7 @@ List<Product> demoProducts = [
     isPopular: true,
   ),
   Product(
-    id: 3,
+    id: '3',
     images: [
       "assets/images/glap.png",
     ],
@@ -83,7 +89,7 @@ List<Product> demoProducts = [
     isPopular: true,
   ),
   Product(
-    id: 4,
+    id: '4',
     images: [
       "assets/images/wireless headset.png",
     ],

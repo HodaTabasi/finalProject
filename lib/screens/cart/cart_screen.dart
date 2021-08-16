@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/helper/providers/CartProvider.dart';
 import 'package:shop_app/models/Cart.dart';
 
 import 'components/body.dart';
@@ -24,7 +26,7 @@ class CartScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${demoCarts.length} items",
+            "${Provider.of<CartProvider>(context).listCount} items",
             style: Theme.of(context).textTheme.caption,
           ),
         ],

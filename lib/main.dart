@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/helper/NavigatorKey.dart';
+import 'package:shop_app/helper/providers/CartProvider.dart';
 import 'package:shop_app/helper/providers/cat_provider.dart';
 import 'package:shop_app/helper/providers/user_provider.dart';
 import 'package:shop_app/routes.dart';
@@ -12,10 +13,12 @@ import 'package:shop_app/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'helper/LocalStorage/sp_helper.dart';
+import 'helper/backendHelper/SQLHelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SPHelper.sp.initSP();
+  await SQLHelper.helper.initDataBase();
   runApp(App());
 }
 
@@ -60,6 +63,9 @@ class _AppState extends State<App> {
               ),
               ChangeNotifierProvider<CatProvider>(
                 create: (context) => CatProvider(),
+              ),
+              ChangeNotifierProvider<CartProvider>(
+                create: (context) => CartProvider(),
               ),
             ],
             child: MaterialApp(

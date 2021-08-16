@@ -14,13 +14,14 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFFF5F6F9),
       appBar: CustomAppBar(rating: agrs.product.rating),
-      body: Body(product: agrs.product),
+      body: Body(product: agrs.product,flag: agrs.flag,),
     );
   }
 }
 
 class ProductDetailsArguments {
   final Product product;
+  bool flag;
 
-  ProductDetailsArguments({@required this.product});
+  ProductDetailsArguments(this.product,[this.flag = false]);
 }

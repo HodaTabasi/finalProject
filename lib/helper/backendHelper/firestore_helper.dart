@@ -49,7 +49,6 @@ class FireStoreHelper {
   Future<List<Product>> getProduct(String catId) async {
     QuerySnapshot<Map<String, dynamic>> doc =
         await fbs.collection("Products").where('catId', isEqualTo: catId).get();
-
     return doc.docs.map((e) {
       return Product.toMap(e);
     }).toList();
