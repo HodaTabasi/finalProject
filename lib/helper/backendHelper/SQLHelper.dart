@@ -68,6 +68,13 @@ class SQLHelper {
     // print(deleteRowNum);
   }
 
+  Future<int> deleteAll() async {
+    int deleteRowNum =
+    await database.delete(TABLE_NAME);
+    return deleteRowNum;
+    // print(deleteRowNum);
+  }
+
   // updateTask(TaskDB taskDB) async {
   //   var x = await database.update(TABLE_NAME, taskDB.toMap(),
   //       where: '$ID=?', whereArgs: [taskDB.id]);

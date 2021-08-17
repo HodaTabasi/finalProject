@@ -5,10 +5,23 @@ class CartProvider extends ChangeNotifier {
   int listCount = 0;
   int total = 0;
   List<Cart> carts;
+  String address;
 
   setCartListCount(int categories) {
     listCount = categories;
     // notifyListeners();
+  }
+
+  setAddress(String addr) {
+    address = addr;
+  }
+
+  clearAll(){
+    address = "";
+    total = 0;
+    listCount = 0;
+    carts = [];
+    notifyListeners();
   }
 
   // calculateTotalPrice(Cart cart) {

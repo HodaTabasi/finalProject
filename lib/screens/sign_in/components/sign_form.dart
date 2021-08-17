@@ -59,6 +59,7 @@ class _SignFormState extends State<SignForm> {
       if (snapshot != null) {
         NavigationService.navigationService
             .navigateTo(LoginSuccessScreen.routeName);
+
       }
 
       // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
