@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Order{
   String id;
   String totalPrice;
@@ -15,5 +17,14 @@ class Order{
       "address": address,
       "stauts": "wait",
     };
+  }
+
+  Order.toMap(DocumentSnapshot<Map> snapshot){
+    Map map = snapshot.data();
+    id = map['id'];
+    totalPrice =map['totalPrice'];
+    userId =map['totalPrice'];
+    address =map['address'];
+    stauts =map['stauts'];
   }
 }

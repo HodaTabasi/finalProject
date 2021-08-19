@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/helper/NavigatorKey.dart';
 import 'package:shop_app/helper/providers/CartProvider.dart';
+import 'package:shop_app/helper/providers/ProductProvider.dart';
 import 'package:shop_app/helper/providers/cat_provider.dart';
 import 'package:shop_app/helper/providers/user_provider.dart';
 import 'package:shop_app/routes.dart';
@@ -66,6 +67,9 @@ class _AppState extends State<App> {
               ),
               ChangeNotifierProvider<CartProvider>(
                 create: (context) => CartProvider(),
+              ),
+              ChangeNotifierProvider<ProductProvider>(
+                create: (context) => ProductProvider(),
               ),
             ],
             child: MaterialApp(

@@ -45,6 +45,18 @@ class Product {
     this.isFavourite = false;
     this.isPopular = false;
   }
+
+    fromMap(){
+    return {
+      "name":this.title,
+      "price":price1,
+      "id":this.id,
+      "catId":this.catId,
+      "views":this.views,
+      "image":this.mainImage,
+      "desc":this.description
+    };
+  }
 }
 
 // Our demo Products

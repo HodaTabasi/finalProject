@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shop_app/helper/LocalStorage/sp_helper.dart';
 import 'package:shop_app/helper/providers/CartProvider.dart';
+import 'package:shop_app/helper/providers/ProductProvider.dart';
 import 'package:shop_app/models/AppUser.dart';
 import 'package:shop_app/models/Category.dart';
 import 'package:shop_app/models/Order.dart';
@@ -58,9 +59,13 @@ class FireStoreHelper {
     }).toList();
   }
 
-  Future<bool> addOrder(context){
+  Future<bool> addOrder(context) {
     String userId = SPHelper.sp.sharedPreferences.getString("id");
-    Order order = Order("", "${Provider.of<CartProvider>(context,listen: false).total}", userId, Provider.of<CartProvider>(context,listen: false).address);
+    Order order = Order(
+        "",
+        "${Provider.of<CartProvider>(context, listen: false).total}",
+        userId,
+        Provider.of<CartProvider>(context, listen: false).address);
     Future<bool> future = fbs
         .collection("Orders")
         .add(order.toMap())
@@ -69,4 +74,82 @@ class FireStoreHelper {
 
     return future;
   }
+
+  Future<bool> getIsFav(context, productId, userId) async {
+    bool future = await fbs
+        .collection("Favourites")
+        .where('productId', isEqualTo: productId)
+        .where('userId', isEqualTo: userId)
+        .get()
+        .then((value) {
+      if (value.docs.isEmpty) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    return future;
+  }
+
+  Future<bool> addFav(productId, userId, product) {
+    String userId = SPHelper.sp.sharedPreferences.getString("id");
+
+    fbs
+        .collection("Favourites")
+        .doc(userId)
+        .set({"userId": userId, "productId": productId})
+        .then((value) => true)
+        .catchError((error) => false);
+
+    Future<bool> future = fbs
+        .collection("Favourites")
+        .doc(userId)
+        .collection("Product")
+        .doc(productId)
+        .set(product.fromMap())
+        .then((value) => true)
+        .catchError((error) => false);
+
+    return future;
+  }
+
+  Future<List<Product>> getFavProduct() async {
+    String userId = SPHelper.sp.sharedPreferences.getString("id");
+    QuerySnapshot<Map<String, dynamic>> doc = await fbs
+        .collection("Favourites")
+        .doc(userId)
+        .collection("Product")
+        .get();
+
+    return doc.docs.map((e) {
+      return Product.toMap(e);
+    }).toList();
+  }
+
+  Future<bool> removeFromFav(productId) async {
+    String userId = SPHelper.sp.sharedPreferences.getString("id");
+    Future<bool> doc = fbs
+        .collection("Favourites")
+        .doc(userId)
+        .collection("Product")
+        .doc(productId)
+        .delete()
+        .then((value) => true)
+        .catchError((error) => false);
+
+    return doc;
+  }
+
+  Future<List<Order>> getOrders() async {
+    String userId = SPHelper.sp.sharedPreferences.getString("id");
+    QuerySnapshot<Map<String, dynamic>> doc =
+        await fbs.collection("Orders").where('userId', isEqualTo: userId).get();
+
+    return doc.docs.map((e) {
+      return Order.toMap(e);
+    }).toList();
+  }
+
+  
 }
