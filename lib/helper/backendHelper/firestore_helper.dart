@@ -151,5 +151,23 @@ class FireStoreHelper {
     }).toList();
   }
 
-  
+  Future<AppUser> getUserData() async {
+    String userId = SPHelper.sp.sharedPreferences.getString("id");
+    DocumentSnapshot<Map<String, dynamic>> doc =
+        await fbs.collection("Users").doc(userId).get();
+    return AppUser.fromDataSnapShot(doc);
+  }
+
+  Future<bool> UpdateUser(AppUser user) async {
+    String userId = SPHelper.sp.sharedPreferences.getString("id");
+    Future<bool> future = fbs
+        .collection("Users")
+        .doc(userId)
+        .update(user.updateToMap())
+        .then((value) => true)
+        .catchError((error) => false);
+
+    return future;
+  }
+
 }

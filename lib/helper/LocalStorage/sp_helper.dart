@@ -40,4 +40,7 @@ class SPHelper {
     var x = sharedPreferences.get(key);
     return x;
   }
+  clearAll(){
+    sharedPreferences.clear();
+  }
 }
