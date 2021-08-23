@@ -16,4 +16,5 @@ class UserProvider extends ChangeNotifier {
     appUser.fromMapToObject(snapshot.data());
     notifyListeners();
   }
+
 }

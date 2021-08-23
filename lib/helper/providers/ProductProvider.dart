@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
 class ProductProvider extends ChangeNotifier {
-  bool isFav= false;
-  putIsFav(fav){
+  List<String> peoductFavIds = [];
+  bool isFav = false;
+
+  putIsFav(fav) {
     this.isFav = fav;
     notifyListeners();
   }
 
-  removeFromFav(){
+  removeFromFav() {
     this.isFav = false;
     notifyListeners();
+  }
+
+  resetProductId() {
+    this.peoductFavIds = [];
   }
 }

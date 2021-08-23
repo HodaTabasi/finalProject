@@ -186,4 +186,18 @@ class FireStoreHelper {
 
     return future;
   }
+
+  Future<List<Product>> getFavProductId(context) async {
+    String userId = SPHelper.sp.sharedPreferences.getString("id");
+    QuerySnapshot<Map<String, dynamic>> doc = await fbs
+        .collection("Favourites")
+        .doc(userId)
+        .collection("Product")
+        .get();
+
+    return doc.docs.map((e) {
+      Provider.of<ProductProvider>(context,listen: false).peoductFavIds.add(e.id);
+    }).toList();
+
+  }
 }

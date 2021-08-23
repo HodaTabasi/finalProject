@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/helper/providers/ProductProvider.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/screens/details/details_screen.dart';
 
@@ -29,7 +31,7 @@ class ProductItem extends StatelessWidget {
             Navigator.pushNamed(
               context,
               DetailsScreen.routeName,
-              arguments: ProductDetailsArguments(product,true),
+              arguments: ProductDetailsArguments(product, true),
             );
           },
           child: Column(
@@ -74,14 +76,20 @@ class ProductItem extends StatelessWidget {
                       height: getProportionateScreenWidth(28),
                       width: getProportionateScreenWidth(28),
                       decoration: BoxDecoration(
-                        color: product.isFavourite
+                        color: (Provider.of<ProductProvider>(context,
+                                    listen: false)
+                                .peoductFavIds
+                                .contains(product.id))
                             ? kPrimaryColor.withOpacity(0.15)
                             : kSecondaryColor.withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
                       child: SvgPicture.asset(
                         "assets/icons/Heart Icon_2.svg",
-                        color: product.isFavourite
+                        color: (Provider.of<ProductProvider>(context,
+                                    listen: false)
+                                .peoductFavIds
+                                .contains(product.id))
                             ? Color(0xFFFF4848)
                             : Color(0xFFDBDEE4),
                       ),
