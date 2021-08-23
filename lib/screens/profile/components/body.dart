@@ -32,13 +32,13 @@ class Body extends StatelessWidget {
           //
           //   },
           // ),
-          ProfileMenu(
-            text: "change language",
-            icon: "assets/icons/Settings.svg",
-            press: () {
-
-            },
-          ),
+          // ProfileMenu(
+          //   text: 'lang'.tr(),
+          //   icon: "assets/icons/Settings.svg",
+          //   press: () {
+          //
+          //   },
+          // ),
           ProfileMenu(
             text: "Help Center",
             icon: "assets/icons/Question mark.svg",

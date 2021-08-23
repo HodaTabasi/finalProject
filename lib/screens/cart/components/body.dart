@@ -34,7 +34,7 @@ class _BodyState extends State<Body> {
           case ConnectionState.waiting:
             return Text('Loading....');
           case ConnectionState.done:
-            Provider.of<CartProvider>(context, listen: false).setCartListCount(snapshot.data.length);
+            // Provider.of<CartProvider>(context, listen: false).setCartListCount(snapshot.data.length);
             // Provider.of<CartProvider>(context, listen: false).calculateTotalPrice(snapshot.data);
             return Padding(
               padding: EdgeInsets.symmetric(

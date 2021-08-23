@@ -6,7 +6,19 @@ class CartProvider extends ChangeNotifier {
   int total = 0;
   List<Cart> carts;
   String address;
+  int counts = 1;
 
+  increment(){
+    counts++;
+    notifyListeners();
+  }
+  decrement(){
+    counts--;
+    notifyListeners();
+  }
+  addListCount(){
+    listCount++;
+  }
   setCartListCount(int categories) {
     listCount = categories;
     // notifyListeners();
@@ -49,4 +61,6 @@ class CartProvider extends ChangeNotifier {
     listCount = carts.length;
     notifyListeners();
   }
+
+
 }

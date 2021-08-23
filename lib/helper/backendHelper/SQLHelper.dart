@@ -49,6 +49,7 @@ class SQLHelper {
     List<Cart> dd = data.map( (entry) {
       return Cart.fromMap(entry);
     }).toList();
+
     Provider.of<CartProvider>(context, listen: false).setCart(dd);
     return dd;
   }

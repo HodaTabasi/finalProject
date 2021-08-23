@@ -79,16 +79,20 @@ class FireStoreHelper {
   Future<bool> getIsFav(context, productId, userId) async {
     bool future = await fbs
         .collection("Favourites")
-        .where('productId', isEqualTo: productId)
-        .where('userId', isEqualTo: userId)
+        .doc(userId)
+        .collection("Product")
+        .doc(productId)
         .get()
         .then((value) {
-      if (value.docs.isEmpty) {
+         print(value.data().isEmpty);
+      if (value.data().isEmpty) {
         return false;
       } else {
         return true;
       }
     });
+
+    Provider.of<ProductProvider>(context, listen: false).putIsFav(future);
 
     return future;
   }
@@ -176,11 +180,10 @@ class FireStoreHelper {
     Future<bool> future = fbs
         .collection("Users")
         .doc(userId)
-        .update({"image":url})
+        .update({"image": url})
         .then((value) => true)
         .catchError((error) => false);
 
     return future;
   }
-
 }

@@ -6,4 +6,9 @@ class ProductProvider extends ChangeNotifier {
     this.isFav = fav;
     notifyListeners();
   }
+
+  removeFromFav(){
+    this.isFav = false;
+    notifyListeners();
+  }
 }

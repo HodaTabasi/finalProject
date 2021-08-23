@@ -33,8 +33,6 @@ class ProductDescription extends StatelessWidget {
           case ConnectionState.waiting:
             return Text('Loading....');
           case ConnectionState.done:
-            Provider.of<ProductProvider>(context, listen: false).isFav =
-                snapshot.data;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -72,23 +70,20 @@ class ProductDescription extends StatelessWidget {
                                 .putIsFav(isFav);
                           }
                         } else {
-                          Fluttertoast.showToast(
-                              msg: "fav oready",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.CENTER,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
+                          bool isFav = await FireStoreHelper.fireStoreHelper
+                              .removeFromFav(product.id);
+
+                          if (isFav) {
+                            Provider.of<ProductProvider>(context, listen: false)
+                                .removeFromFav();
+                          }
                         }
                       },
                       child: SvgPicture.asset(
                         "assets/icons/Heart Icon_2.svg",
-                        color:
-                            Provider.of<ProductProvider>(context)
-                                    .isFav
-                                ? Color(0xFFFF4848)
-                                : Color(0xFFDBDEE4),
+                        color: Provider.of<ProductProvider>(context).isFav
+                            ? Color(0xFFFF4848)
+                            : Color(0xFFDBDEE4),
                         height: getProportionateScreenWidth(16),
                       ),
                     ),

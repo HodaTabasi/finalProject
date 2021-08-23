@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/helper/NavigatorKey.dart';
@@ -20,7 +21,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SPHelper.sp.initSP();
   await SQLHelper.helper.initDataBase();
-  runApp(App());
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+      supportedLocales: [Locale('en'), Locale('ar')],
+      path: 'assets/translations',
+      // <-- change the path of the translation files
+      fallbackLocale: Locale('en'),
+      startLocale: Locale('en'),
+      child: App()));
 }
 
 /// We are using a StatefulWidget such that we only create the [Future] once,
@@ -73,6 +81,9 @@ class _AppState extends State<App> {
               ),
             ],
             child: MaterialApp(
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               theme: theme(),

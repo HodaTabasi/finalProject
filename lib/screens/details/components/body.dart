@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/helper/backendHelper/SQLHelper.dart';
+import 'package:shop_app/helper/providers/CartProvider.dart';
 import 'package:shop_app/models/Cart.dart';
 import 'package:shop_app/models/Product.dart';
 import 'package:shop_app/size_config.dart';
@@ -54,15 +56,18 @@ class Body extends StatelessWidget {
                           press: () async {
                             var rng = new Random();
                             int id = rng.nextInt(100);
+                            int count = Provider.of<CartProvider>(context, listen: false).counts;
                             Cart cart = Cart(
                                 id: id,
                                 name: product.title,
                                 price: (flag) ? product.price1 : product.price,
                                 imageUrl: product.mainImage,
-                                numOfItem: 1);
+                                numOfItem: count);
                             int numRow =
                                 await SQLHelper.helper.insertData(cart);
                             if (numRow > -1) {
+                              Provider.of<CartProvider>(context, listen: false).addListCount();
+                              Provider.of<CartProvider>(context, listen: false).counts = 1;
                               Fluttertoast.showToast(
                                   msg: "Data Added successfully",
                                   toastLength: Toast.LENGTH_SHORT,

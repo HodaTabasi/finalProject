@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app/components/rounded_icon_btn.dart';
+import 'package:shop_app/helper/providers/CartProvider.dart';
 import 'package:shop_app/models/Product.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class ColorDots extends StatelessWidget {
-  const ColorDots({
+   ColorDots({
     Key key,
     @required this.product,
+    this.counts
   }) : super(key: key);
 
   final Product product;
+  int counts = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +36,19 @@ class ColorDots extends StatelessWidget {
           Spacer(),
           RoundedIconBtn(
             icon: Icons.remove,
-            press: () {},
+            press: () {
+              Provider.of<CartProvider>(context, listen: false).decrement();
+            },
           ),
-          SizedBox(width: getProportionateScreenWidth(20)),
+          SizedBox(width: getProportionateScreenWidth(10)),
+          Text("${Provider.of<CartProvider>(context).counts}"),
+          SizedBox(width: getProportionateScreenWidth(10)),
           RoundedIconBtn(
             icon: Icons.add,
             showShadow: true,
-            press: () {},
+            press: () {
+              Provider.of<CartProvider>(context, listen: false).increment();
+            },
           ),
         ],
       ),
