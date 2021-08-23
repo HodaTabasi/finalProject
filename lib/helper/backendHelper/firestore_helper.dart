@@ -66,6 +66,7 @@ class FireStoreHelper {
         "${Provider.of<CartProvider>(context, listen: false).total}",
         userId,
         Provider.of<CartProvider>(context, listen: false).address);
+
     Future<bool> future = fbs
         .collection("Orders")
         .add(order.toMap())
@@ -164,6 +165,18 @@ class FireStoreHelper {
         .collection("Users")
         .doc(userId)
         .update(user.updateToMap())
+        .then((value) => true)
+        .catchError((error) => false);
+
+    return future;
+  }
+
+  Future<bool> setUserImage(String url) async {
+    String userId = SPHelper.sp.sharedPreferences.getString("id");
+    Future<bool> future = fbs
+        .collection("Users")
+        .doc(userId)
+        .update({"image":url})
         .then((value) => true)
         .catchError((error) => false);
 

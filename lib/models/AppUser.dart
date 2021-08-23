@@ -9,6 +9,7 @@ class AppUser {
   String lastName;
   String phone;
   String address;
+  String imageUrl;
 
   AppUser({this.id, this.email, this.password});
 

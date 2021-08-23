@@ -25,17 +25,19 @@ class Body extends StatelessWidget {
               NavigationService.navigationService.navigateTo(EditProfileScreen.routeName)
             },
           ),
+          // ProfileMenu(
+          //   text: "Notifications",
+          //   icon: "assets/icons/Bell.svg",
+          //   press: () {
+          //
+          //   },
+          // ),
           ProfileMenu(
-            text: "Notifications",
-            icon: "assets/icons/Bell.svg",
+            text: "change language",
+            icon: "assets/icons/Settings.svg",
             press: () {
 
             },
-          ),
-          ProfileMenu(
-            text: "Settings",
-            icon: "assets/icons/Settings.svg",
-            press: () {},
           ),
           ProfileMenu(
             text: "Help Center",
