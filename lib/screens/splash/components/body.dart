@@ -34,7 +34,7 @@ class _BodyState extends State<Body> {
   ];
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 50), () {
       if (SPHelper.sp.getData("remember") != null) {
         if (SPHelper.sp.getData("remember")) {
           NavigationService.navigationService.navigateTo(HomeScreen.routeName);
